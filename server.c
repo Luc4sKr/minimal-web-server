@@ -60,10 +60,14 @@ void main() {
     // Dessa forma, após a execução desse código, a string referenciada por f conterá
     // apenas o nome do arquivo, cortando qualquer texto após o primeiro espaço 
     // encontrado na posição que começou a ser apontada por f.
-
-    int opened_fd = open(f, O_RDONLY);
-    sendfile(client_fd, opened_fd, 0, 256);
     
+    // abre o arquivo 
+    int opened_fd = open(f, O_RDONLY);
+    
+    // envia o conteúdo do arquivo associado ao descritor opened_fd para o socket client_fd. 
+    sendfile(client_fd, opened_fd, 0, 256);
+
+    // fecha os descritores
     close(opened_fd);
     close(client_fd);
     close(s);
